@@ -1,3 +1,4 @@
+// 보드의 노드, 음식카드, 축제카드, 각 플레이어의 수강 강의 이력을 저장하는 데이터베이스
 //
 //  smm_database.c
 //  Sookmyung Marble
@@ -18,8 +19,13 @@ typedef struct node{
     void* next;         //pointer to the next
     void* prev;         //pointer to the next
 } node_t;
-
-
+// 플레이어의 정보 저장하는 구조체 
+struct Player {
+	char name[MAX_CHARNAME];
+	int energy;
+	int credit;
+	int position; 
+};
 static node_t* list_database[MAX_LIST];
 static node_t* listPtr[MAX_LIST];
 static int list_cnt[MAX_LIST];
