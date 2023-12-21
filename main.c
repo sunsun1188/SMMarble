@@ -1,4 +1,4 @@
-#플레이어 관리 및 게임의 주요 동작 흐름 실현 
+//플레이어 관리 및 게임의 주요 동작 흐름 실현 
 //
 //  main.c
 //  SMMarble
@@ -25,7 +25,7 @@ static int festival_nr;
 
 
 //function prototypes
-#if 0
+
 int isGraduated(void); //check if any player is graduated
 void generatePlayers(int n, int initEnergy); //generate a new player
 void printGrades(int player); //print grade history of the player
@@ -36,8 +36,7 @@ float calcAverageGrade(int player); //calculate average grade of the player
 smmGrade_e takeLecture(int player, char *lectureName, int credit); //take the lecture (insert a grade of the player)
 void* findGrade(int player, char *lectureName); //find the grade from the player's grade history
 void printGrades(int player); //print all the grade history of the player
- 
-#endif
+int rolldie(int player); // 주사위 굴리고 player 이동 
 
 
 
@@ -49,10 +48,9 @@ int rolldie(int player)
     c = getchar();
     fflush(stdin);
     
-#if 0
     if (c == 'g')
         printGrades(player);
-#endif
+
     
     return (rand()%MAX_DIE + 1);
 }
@@ -76,10 +74,38 @@ void generatePlayers(int n, int initEnergy) {
 	// 플레이어 이름 입력
 	inputPlayerNames(n, players);
 	
-	// 플레이어 초기 에너지 설정
+	// 플레이어 초기 에너지 및 credit 설정
 	for (int i=0; i<n; ++i) {
 		players[i].energy = initEnergy;
+		players[i].credit=0;
+		players[i].position=0; // 초기 위치는 0으로 설정 
 	}
+	
+	// 플레이어 정보 출력
+	printf("===============");
+	printf("Players status");
+	printf("===============");
+	for (int i = 0; i < n; ++i) {
+        printf("플레이어 %d: 이름=%s, 에너지=%d, credit=%d, 위치=%d\n", i, players[i].name, players[i].energy, players[i].credit, players[i].position);
+    }
+    printf("===============");
+	printf("Players status");
+	printf("===============");
+	
+    // 여기서부터 printPlayerStatus 함수 호출
+	printfPlayerStatus(n, players); 
+}
+
+// printPlayerStatus 함수
+void printPlayerStatus(int numPlayers, struct Player players[]) {
+    // 각 플레이어의 상태 출력
+    printf("===============");
+	printf("Players status");
+	printf("===============");
+	
+    for (int i = 0; i < numPlayers; ++i) {
+        printf("%s at %s, credit: %d, energy: %d\n", players[i].name, marbleBoard[players[i].position].name, players[i].credit, players[i].energy);
+    }
 }
 
 

@@ -3,7 +3,6 @@
 //  smm_database.c
 //  Sookmyung Marble
 //  Database platform code for storing marble board elements
-//  Created by Juyeop Kim on 2023/11/05.
 //
 
 #include "smm_common.h"
@@ -19,6 +18,8 @@ typedef struct node{
     void* next;         //pointer to the next
     void* prev;         //pointer to the next
 } node_t;
+
+
 // 플레이어의 정보 저장하는 구조체 
 struct Player {
 	char name[MAX_CHARNAME];
@@ -26,6 +27,8 @@ struct Player {
 	int credit;
 	int position; 
 };
+
+
 static node_t* list_database[MAX_LIST];
 static node_t* listPtr[MAX_LIST];
 static int list_cnt[MAX_LIST];
